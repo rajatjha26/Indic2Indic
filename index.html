@@ -1,0 +1,142 @@
+<html>
+	<head>
+		<title>indicTOindic</title>
+		<meta charset="utf-8">
+		<script src="js/jquery.js"></script>
+		<script src="lib/indicToIndic.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.5-dist/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="css/responsive.css" />
+		<script type="text/javascript" src="bootstrap-3.3.5-dist/js/bootstrap.js" ></script>
+		<script type="text/javascript" src="js/convert.js" ></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	</head>
+	<body>
+		<div>
+			<div class="page-header">
+				<h1 style="color:#d81b79; text-align: center; font-style: italic;">Indic-to-Indic</h1>
+				
+			</div>
+			
+			<form class="form-inline" id="upload" method="post" enctype="multipart/form-data">
+				<div class="form-group col-12 col-m-12">
+          <div id="inpage_menu" >
+            <p style="text-align: left; margin-left: 10%;">Input language/script:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" id="hindiinp" name="inlang" value="hindi" >
+              <label for="hindi">Hindi</label>  			
+              <input type="radio" id="banglainp" name="inlang" value="bangla" >
+              <label for="bangla">Bangla</label>
+              <input type="radio" id="gurumukhiinp" name="inlang" value="gurumukhi" >
+              <label for="gurumukhi">Gurumukhi</label>
+              <input type="radio" id="gujaratiinp" name="inlang" value="gujarati" >
+              <label for="gujarati">Gujarati</label>
+              <input type="radio" id="oriyainp" name="inlang" value="oriya">
+              <label for="oriya">Oriya</label>
+              <input type="radio" id="tamilinp" name="inlang" value="tamil">
+              <label for="tamil">Tamil</label>
+              <input type="radio" id="teluguinp" name="inlang" value="telugu">
+              <label for="telugu">Telugu</label>
+              <input type="radio" id="kannadainp" name="inlang" value="kannada">
+              <label for="kannada">Kannada</label>
+              <input type="radio" id="malayalaminp" name="inlang" value="malayalam" >
+              <label for="malayalam">Malayalam</label>
+              <span  class="error-messages" id="error_inp_script"></span>
+            </p>
+          </div>
+          
+          <div id="out_lang" >
+            <p style="text-align: left; margin-left: 10%;">Output language/script:&nbsp;&nbsp;&nbsp;&nbsp;    			
+              <input type="radio" id="hindilang" name="outlang" value="hindi" >
+              <label for="hindi">Hindi</label>  			
+              <input type="radio" id="banglalang" name="outlang" value="bangla" >
+              <label for="bangla">Bangla</label>
+              <input type="radio" id="gurumukhilang" name="outlang" value="gurumukhi" >
+              <label for="gurumukhi">Gurumukhi</label>
+              <input type="radio" id="gujaratilang" name="outlang" value="gujarati" >
+              <label for="gujarati">Gujarati</label>
+              <input type="radio" id="oriyalang" name="outlang" value="oriya">
+              <label for="oriya">Oriya</label>
+              <input type="radio" id="tamillang" name="outlang" value="tamil">
+              <label for="tamil">Tamil</label>
+              <input type="radio" id="telugulang" name="outlang" value="telugu">
+              <label for="telugu">Telugu</label>
+              <input type="radio" id="kannadalang" name="outlang" value="kannada">
+              <label for="kannada">Kannada</label>
+              <input type="radio" id="malayalamlang" name="outlang" value="malayalam" >
+              <label for="malayalam">Malayalam</label>
+              <span class="error-messages" id="error_out_script"></span>
+            </p>
+          </div>
+          <!-- <input type="submit" onclick="convert()" value="Submit" name="submit"></input> -->
+          <label class="btn btn-primary" for="my-file-selector" >
+            <input id="inpageinput" onchange="putInputinTextArea(this.files[0])" style="color:black;" type="file">
+          </label>&nbsp;&nbsp;<br>
+        <input style="position: -webkit-sticky; background-color:rgb(35, 105, 122); font-size: large; color: aquamarine;" type="button" value="Submit" onclick="convert()">
+    
+          <p>
+            <span style="text-align: left; margin-right: 60%; font-size: large;">Source</span>
+            <span style="text-align: right; font-size: large">Target</span>
+          </p>
+          <div class="flex-container">
+            <div id="source" contenteditable="true" ></div>
+            <div id="target" ></div>
+          </div>
+				</div> 
+			</form>
+		</div>
+	</body>
+<script> 
+    let putInputinTextArea=(file)=>{
+        let reader = new FileReader();
+        reader.onload = function(e) {
+        document.getElementById("source").innerHTML=e.target.result;
+        };
+        reader.readAsText(file);
+
+    }
+    function convert() {
+      let InpText=document.getElementById("source").innerText;
+      options = {};
+      let inpradio = document.getElementsByName("inlang");
+      let outradio=document.getElementsByName("outlang");
+      for (let i = 0, len = inpradio.length; i < len; i++) {
+        if (inpradio[i].checked) {
+          options["inp"]=inpradio[i].value;
+          break;
+        }
+      }
+      for (let i = 0, len = outradio.length; i < len; i++) {
+        if (outradio[i].checked) {
+          options["out"]=outradio[i].value;
+          break;
+        }
+      }
+      if(!options["inp"])
+        return document.getElementById("error_inp_script").innerHTML="Choose input Script";
+      else{
+        document.getElementById('error_inp_script').style.display = "none";
+      }
+      if(!options["out"])
+        return document.getElementById("error_out_script").innerHTML="Choose Output Script";
+      else{
+        document.getElementById('error_out_script').style.display = "none";
+      }
+      indicTOindic(InpText, options, showRes);
+    }
+
+function showRes(res) {
+      document.getElementById('target').innerHTML = '<span class="new" style="color:red;">'+res+'</span>';
+    }
+function download(){
+var a = document.body.appendChild(
+    document.createElement("a")
+);
+a.download = "export.html";
+
+a.href = "data:text/html," + document.getElementById("content").innerHTML;
+  a.click();
+
+}
+
+</script>
+</html>

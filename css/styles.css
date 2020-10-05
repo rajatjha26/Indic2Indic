@@ -1,0 +1,89 @@
+html,body{
+	
+	margin-left:1%;
+	margin-right:2%;
+	     text-align: center;
+	background-color: rgb(189, 215, 226);
+}
+
+#mandatory{
+	color:red;
+	font-size:22px;
+	vertical-align:middle;
+}
+.hidden {
+	    display: none;
+    }
+#upmenu{
+	margin-top:1%;
+	margin-left:2px;
+	border:1px solid red;
+	padding:2px;
+}
+
+/* override bootstrap*/
+.row {
+	  margin-left: 0px;
+	    margin-right: 0px;
+}
+.sample{
+	background-color:whitesmoke;
+}
+#language,#from_to,#submit,#target,#domain,#file,#inpage{
+	/*margin-top:1%;*/
+	background-color:whitesmoke;
+	color:black;
+}
+
+#input,#result{
+	padding:0.5%;
+	margin-right:2%;
+	margin-top:1%;
+	text-align:justify;
+	width:85%;
+	min-height:300px;
+	font-size:24px;
+	overflow-y:auto;/*scroll*/
+	padding:5px;
+}
+
+select:disabled {
+	cursor:default;
+}
+select:disabled {
+	cursor:not-allowed;
+}
+textarea{
+	font-family:rokkit;
+}
+@font-face{
+	font-family: 'rokkit';
+	font-style: normal;
+	font-weight: 400;
+	src: url("nwn.ttf");
+}
+
+.flex-container {
+	margin-top: 10px;
+	display: flex;
+	background-color: #f1f1f1;
+	padding-top: 5px;
+  }
+  
+  .flex-container > div {
+	background-color: linen;
+	color: blue;
+	width: 50%;
+	margin: 10px;
+	text-align: left;
+	white-space:pre-wrap;
+	font-size: medium;
+  
+  }
+  .btn{
+	  margin:10px;
+  }
+  .error-messages {
+	color: red;
+	font-size:medium;
+	text-align: right; }
